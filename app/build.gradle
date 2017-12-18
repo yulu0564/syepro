@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
+def config = rootProject.ext.android
+android {
+/*签名设置*/
+    signingConfigs {
+        releaseConfig {
+            keyAlias 'mykey'
+            keyPassword 'yisanban2016'
+            storeFile file('android.keystore')
+            storePassword 'yisanban2016'
+            v2SigningEnabled false
+        }
+    }
+
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.syepro.app"
+        minSdkVersion config.minSdkVersion
+        targetSdkVersion config.targetSdkVersion
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            signingConfig signingConfigs.releaseConfig
+        }
+        debug {
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
+
+
+    dexOptions {
+        javaMaxHeapSize "2048M"
+    }
+
+    //配置so文件
+    sourceSets{
+        main {
+            jniLibs.srcDirs = ['libs'] // <-- Set your folder here!
+        }
+    }
+    lintOptions {
+        disable "ResourceType"
+        disable 'InvalidPackage'
+        disable 'MissingTranslation'
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    annotationProcessor 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:converter-scalars:2.0.0-beta4'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:multidex:1.0.1'
+    implementation files('libs/BaiduLBS_Android.jar')
+}

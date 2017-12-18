@@ -1,0 +1,13 @@
+ext{
+    android = [
+            compileSdkVersion: 26,
+            buildToolsVersion :"26.0.2",
+            minSdkVersion: 14,
+            targetSdkVersion: 26
+    ]
+    dependencies = [
+        supportV4:'com.android.support:support-v4:25+',
+
+
+    ]
+}
