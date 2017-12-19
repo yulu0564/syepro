@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.syepro.app.R;
 import com.syepro.app.base.activity.BaseActivity;
-import com.syepro.app.commonjar.utils.ToastUtils;
+import com.syepro.app.utils.ToastUtils;
 
 
 import java.net.UnknownHostException;

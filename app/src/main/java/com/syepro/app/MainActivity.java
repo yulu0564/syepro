@@ -1,7 +1,6 @@
 package com.syepro.app;
 
-import com.syepro.app.activity.OverlayDemo;
-import com.syepro.app.activity.VideoActivity;
+import com.syepro.app.api.upload.UploadActivity;
 import com.syepro.app.api.JyAPIUtil;
 import com.syepro.app.api.network.Comments;
 import com.syepro.app.api.network.ProgressSubscriber;
@@ -39,7 +38,7 @@ public class MainActivity extends BaseActivity {
 
 //        skip(VideoActivity.class);
 
-        skip(OverlayDemo.class);
+        skip(UploadActivity.class);
     }
 
 

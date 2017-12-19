@@ -1,6 +1,6 @@
 package com.syepro.app.api;
 
-import com.syepro.app.commonjar.utils.LogUtils;
+import com.syepro.app.utils.LogUtils;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;

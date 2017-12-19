@@ -17,9 +17,9 @@ import com.syepro.app.base.BaseApplication;
 import com.syepro.app.base.activity.BaseActivity;
 import com.syepro.app.base.skip.Skip;
 import com.syepro.app.base.skip.SkipView;
-import com.syepro.app.commonjar.utils.EventBus;
-import com.syepro.app.commonjar.utils.EventBusCenter;
-import com.syepro.app.commonjar.utils.NetUtils;
+import com.syepro.app.utils.EventBus;
+import com.syepro.app.utils.EventBusCenter;
+import com.syepro.app.utils.NetUtils;
 
 import java.io.Serializable;
 

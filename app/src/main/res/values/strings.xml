@@ -8,4 +8,12 @@
     <string name="net_state_error">网络连接失败\n请检测您的网络</string>
     <string name="no_find">没有找到您想要\n的信息</string>
     <string name="common_otherError">服务器开小差了，稍后再试</string>
+
+    <string name="hello">Hello World, UploadActivity!</string>
+    <string name="filename">文件名称</string>
+    <string name="button">上传</string>
+    <string name="sdcarderror">SDCard不存在或者写保护</string>
+    <string name="success">上传完成</string>
+    <string name="error">上传失败</string>
+    <string name="filenotexsit">文件不存在</string>
 </resources>
