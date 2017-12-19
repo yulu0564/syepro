@@ -6,12 +6,16 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.syepro.app.R;
+import com.syepro.app.api.upload.BrokenPointUploadFile;
 import com.syepro.app.base.activity.BaseActivity;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,12 +67,24 @@ public class VideoActivity extends BaseActivity {
                         .getColumnIndex(MediaStore.Video.VideoColumns.DATA));
                 imgVideo.setImageBitmap(getVideoThumbnail(filePath));
                 cursor.close();
+                aa();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
 
+    private void aa(){
+        BrokenPointUploadFile mBrokenPointUploadFile = new BrokenPointUploadFile(this) {
+            @Override
+            public void onProgress(int value) {
+
+            }
+        };
+        File uploadFile = new File(filePath);
+        mBrokenPointUploadFile.setUploadFile(uploadFile);
+        mBrokenPointUploadFile.start();
+    }
 
     /**
      * 获得视频的缩略图
