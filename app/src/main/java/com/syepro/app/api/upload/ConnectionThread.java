@@ -38,7 +38,8 @@ public class ConnectionThread extends HandlerThread {
         final Handler handler = new Handler() {
             public void handleMessage(Message message) {
                 if (onReadListener != null) {
-                    onReadListener.onResponse((int) message.obj);
+                    int length = message.getData().getInt("size");
+                    onReadListener.onResponse(length);
                 }
             }
         };
