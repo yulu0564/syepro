@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.syepro.app.R;
 import com.syepro.app.api.upload.BrokenPointUploadFile;
@@ -31,6 +32,8 @@ public class VideoActivity extends BaseActivity {
 
     @BindView(R.id.img_video)
     ImageView imgVideo;
+    @BindView(R.id.uploadbar)
+    ProgressBar uploadbar;
 
     @Override
     public int getContentView() {
@@ -39,7 +42,7 @@ public class VideoActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-
+        uploadbar.setMax(100);
     }
 
 
@@ -77,8 +80,8 @@ public class VideoActivity extends BaseActivity {
     private void aa(){
         BrokenPointUploadFile mBrokenPointUploadFile = new BrokenPointUploadFile(this) {
             @Override
-            public void onProgress(int value) {
-
+            public void onProgress(float value) {
+                uploadbar.setProgress((int) (value*100));
             }
         };
         File uploadFile = new File(filePath);

@@ -35,15 +35,8 @@ public class ConnectionThread extends HandlerThread {
      */
     @Override
     protected void onLooperPrepared() {
-        final Handler handler = new Handler() {
-            public void handleMessage(Message message) {
-                if (onReadListener != null) {
-                    int length = message.getData().getInt("size");
-                    onReadListener.onResponse(length);
-                }
-            }
-        };
 
+        final long fileLength = uploadFile.length();
         try {
             String souceid = logService.getBindId(uploadFile);
             String head = "Content-Length=" + uploadFile.length() + ";filename=" + uploadFile.getName() + ";sourceid=" +
@@ -65,6 +58,18 @@ public class ConnectionThread extends HandlerThread {
             byte[] buffer = new byte[1024];
             int len = -1;
             int length = Integer.valueOf(position);
+
+            final Handler handler = new Handler() {
+                public void handleMessage(Message message) {
+                    if (onReadListener != null) {
+                        long length = message.getData().getLong("size");
+                        float progress = length/fileLength;
+                        onReadListener.onProgress(progress);
+                        onReadListener.onFileSize(fileLength,length);
+                    }
+                }
+            };
+
             while (start && (len = fileOutStream.read(buffer)) != -1) {
                 if (isDestroy) {
                     break;
@@ -72,7 +77,7 @@ public class ConnectionThread extends HandlerThread {
                 outStream.write(buffer, 0, len);
                 length += len;
                 Message msg = new Message();
-                msg.getData().putInt("size", length);
+                msg.getData().putLong("size", length);
                 handler.sendMessage(msg);
             }
             fileOutStream.close();
@@ -100,6 +105,7 @@ public class ConnectionThread extends HandlerThread {
     }
 
     public interface OnReadListener {
-        void onResponse(int value);
+        void onProgress(float value);
+        void onFileSize(long fileSize,long progress);
     }
 }

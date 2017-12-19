@@ -25,8 +25,13 @@ public abstract class BrokenPointUploadFile {
         connectionThread = new ConnectionThread(uploadFile, context);
         connectionThread.setOnReadListener(new ConnectionThread.OnReadListener() {
             @Override
-            public void onResponse(int value) {
-                onProgress(value);
+            public void onProgress(float value) {
+                BrokenPointUploadFile.this.onProgress(value);
+            }
+
+            @Override
+            public void onFileSize(long fileSize, long progress) {
+                BrokenPointUploadFile.this.onFileSize(fileSize,progress);
             }
         });
         connectionThread.start();
@@ -46,6 +51,9 @@ public abstract class BrokenPointUploadFile {
         connectionThread.disConnection();
     }
 
-    public abstract void onProgress(int value);
+    public abstract void onProgress(float value);
+    public void onFileSize(long fileSize, long progress) {
+
+    }
 
 }
