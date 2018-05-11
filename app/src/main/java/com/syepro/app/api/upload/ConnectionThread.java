@@ -41,7 +41,7 @@ public class ConnectionThread extends HandlerThread {
             String souceid = logService.getBindId(uploadFile);
             String head = "Content-Length=" + uploadFile.length() + ";filename=" + uploadFile.getName() + ";sourceid=" +
                     (souceid == null ? "" : souceid) + "\r\n";
-            Socket socket = new Socket("192.168.1.111", 7878);
+            Socket socket = new Socket("192.168.51.117", 7878);
             OutputStream outStream = socket.getOutputStream();
             outStream.write(head.getBytes());
 

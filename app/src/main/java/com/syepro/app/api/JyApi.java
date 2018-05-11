@@ -25,12 +25,13 @@ public interface JyApi {
     @GET("comments_list_interface")
     Observable<ResultBean<List<Comments>>> getOrderList(@Query("newsid") String newsid,
                                                         @Query("page") int page, @Query("rows") int rows);
+
     @FormUrlEncoded
     @POST("add_comments")
     Observable<ResultBean<Comments>> post(@Field("newsid") String newsid, @Field("userid") String userid,
                                           @Field("contects") String contects);
 
-//    @Multipart
+    //    @Multipart
 //    @POST(APIAddressConstants.settingControl.uploadMultyFormFile)
     Observable<Response<String>> uploadMultipart(@Part MultipartBody.Part file);
 

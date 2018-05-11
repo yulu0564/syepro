@@ -12,6 +12,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件操作工具类
@@ -111,7 +113,7 @@ public class FileUtils {
         if (Environment.getExternalStorageState().equals(
                 Environment.MEDIA_MOUNTED)) {
             return context.getExternalCacheDir().getPath();
-        }else{
+        } else {
             return context.getCacheDir().getPath();
         }
     }
@@ -197,5 +199,18 @@ public class FileUtils {
 
     public interface OnReadListener {
         void onResponse(String json);
+    }
+
+    public static List<File> getFileList(File file) {
+        List<File> files = new ArrayList<>();
+        File[] fileArray = file.listFiles();
+        for (File f : fileArray) {
+            if (f.isFile()) {
+                files.add(f);
+            } else {
+                files.addAll(getFileList(f));
+            }
+        }
+        return files;
     }
 }

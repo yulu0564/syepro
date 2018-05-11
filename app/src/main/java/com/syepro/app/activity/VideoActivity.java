@@ -15,8 +15,10 @@ import android.widget.ProgressBar;
 import com.syepro.app.R;
 import com.syepro.app.api.upload.BrokenPointUploadFile;
 import com.syepro.app.base.activity.BaseActivity;
+import com.syepro.app.utils.FileUtils;
 
 import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -50,10 +52,11 @@ public class VideoActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.img_video:
-                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);//限制录制时间10秒
-                startActivityForResult(intent, 0);
+//                Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+//                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+//                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 10);//限制录制时间10秒
+//                startActivityForResult(intent, 0);
+                aa();
                 break;
         }
     }
@@ -78,15 +81,25 @@ public class VideoActivity extends BaseActivity {
 
 
     private void aa(){
-        BrokenPointUploadFile mBrokenPointUploadFile = new BrokenPointUploadFile(this) {
-            @Override
-            public void onProgress(float value) {
-                uploadbar.setProgress((int) (value*100));
+        String filename = "bbb";
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            File uploadFile = new File(Environment.getExternalStorageDirectory(), filename);
+            if (uploadFile.exists()) {
+
+                List<File> files = FileUtils.getFileList(uploadFile);
+                for (File mFile:files){
+                    BrokenPointUploadFile mBrokenPointUploadFile = new BrokenPointUploadFile(this) {
+                        @Override
+                        public void onProgress(float value) {
+                            uploadbar.setProgress((int) (value*100));
+                        }
+                    };
+                    mBrokenPointUploadFile.setUploadFile(mFile);
+                    mBrokenPointUploadFile.start();
+                }
             }
-        };
-        File uploadFile = new File(filePath);
-        mBrokenPointUploadFile.setUploadFile(uploadFile);
-        mBrokenPointUploadFile.start();
+        }
+
     }
 
     /**
