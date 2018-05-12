@@ -196,9 +196,9 @@ public class DownLoadTask extends Thread{
 
     private OnDownloadListener onDownloadListener;
     public interface OnDownloadListener{
-        public void onDownloading(int downloadLength);
-        public void onDownloadFinish(String filePath);
-        public void onDownloadFailure(String error);
+        void onDownloading(int downloadLength);
+        void onDownloadFinish(String filePath);
+        void onDownloadFailure(String error);
     }
 
 

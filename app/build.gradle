@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.jakewharton.butterknife'
 def config = rootProject.ext.android
 android {
@@ -81,4 +82,8 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:multidex:1.0.1'
     implementation files('libs/BaiduLBS_Android.jar')
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
